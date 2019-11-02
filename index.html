@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+
+    const state = {};
+
+
+
+    // const fetchAsyncA = async () => await (await fetch('https://api.github.com')).json()
+    // https://gist.github.com/msmfsd/fca50ab095b795eb39739e8c4357a808
+    
+    const getDeckOfCards = async () => {
+        try{
+            const result = await fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1');
+            const data = await result.json();
+            console.log(data);
+            const playerOne = await(await fetch(`https://deckofcardsapi.com/api/deck/${data.deck_id}/draw/?count=5`)).json();
+            console.log(playerOne);
+            const playerTwo= await(await fetch(`https://deckofcardsapi.com/api/deck/${data.deck_id}/draw/?count=5`)).json();
+        
+            console.log(playerTwo);
+
+
+        } catch (error){
+            alert(error);
+        }
+       
+    };
+
+    getDeckOfCards();
+
+    // getDeckOfCards();
+    //     let dataDeck;
+    
+    // getDeckOfCards().then(data=>{
+    //     dataDeck= data;
+    //     //console.log(dataDeck);
+    // })
+
+  
+
+    // const drawCard = async (id) =>{
+    //     try{
+    //         // getDeckOfCards();
+
+    //         const draw = await fetch(`https://deckofcardsapi.com/api/deck/${id}/draw/?count=2`);
+    //         draw = await draw.json();
+    //         console.log(draw);
+    //     }catch (error){
+    //         alert(error);
+    //     }
+    // };
+    
+    // drawCard(data.deck_id);
+  
+
+
+
+    
+</script>
+</html>
