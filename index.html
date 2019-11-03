@@ -30,18 +30,36 @@
             const playerTwo= await(await fetch(`https://deckofcardsapi.com/api/deck/${data.deck_id}/draw/?count=5`)).json();
             console.log(playerTwo);
 
+         
             
-            
+
+            // document.querySelector('.btn-roll').addEventListener('click', function() {}
+
+            //https://stackoverflow.com/questions/33846682/react-onclick-function-fires-on-render/33846747
+            //Because you are calling that function instead of passing the function to onClick, change that line to this:
             const displayCards1 = playerOne.cards.map((currentElement) =>{
-                const displayCard = `<img src = ${currentElement.image} alt = ${currentElement.code}>`
+                //apparently each button need their own unique code in order to have each button click a new card
+                const displayCard = `<button class="buttonCard${currentElement.code}">
+                    <img src = ${currentElement.image} alt = ${currentElement.code}>
+                    </button>`
                 document.querySelector('.playerOne').insertAdjacentHTML('beforeend',displayCard);
+                document.querySelector(`.buttonCard${currentElement.code}`).addEventListener('click', () =>getNewCard())
+            });
+     
+            const displayCards2 = playerTwo.cards.map((currentElement) =>{
+                const displayCard = `<button class="buttonCard${currentElement.code}">
+                    <img src = ${currentElement.image} alt = ${currentElement.code}>
+                    </button>`
+                document.querySelector('.playerTwo').insertAdjacentHTML('beforeend',displayCard);
+                  document.querySelector(`.buttonCard${currentElement.code}`).addEventListener('click', () =>getNewCard())
             });
 
-                      
-                const displayCards2 = playerTwo.cards.map((currentElement) =>{
-                const displayCard = `<img src = ${currentElement.image} alt = ${currentElement.code}>`
-                document.querySelector('.playerTwo').insertAdjacentHTML('beforeend',displayCard);
-            });
+            const getNewCard = async () => {
+                const newCard = await(await fetch(`https://deckofcardsapi.com/api/deck/${data.deck_id}/draw/?count=1`)).json();
+                console.log(newCard);
+            };
+
+         
 
 
             //render
