@@ -73,7 +73,9 @@
 
             document.querySelector('.playerOne').insertAdjacentHTML('beforeend',array);
 
-            document.querySelector(`.buttonCard${playerOne.cards[0].code}`).addEventListener('click', async (e) =>{
+            const dummy = playerOne.cards[0].code;
+
+            document.querySelector(`.buttonCard${dummy}`).addEventListener('click', async (e) =>{
                 if(e){
                     const newCard = await(await fetch(`https://deckofcardsapi.com/api/deck/${data.deck_id}/draw/?count=1`)).json();
                     console.log(newCard);
@@ -82,16 +84,19 @@
                         </button>`;
 
                     
-                    array.splice(0,1,displayNewCard);
-                    console.log(array);
+                    
                     const el = document.querySelector(`.buttonCard${playerOne.cards[0].code}`);
-                    if (el){
+                    const el2 = document.querySelector(`.buttonCard${playerOne.cards[1].code}`);
+                    if (el && el2){
                         el.parentNode.removeChild(el);
+                        el2.parentNode.removeChild(el2);
                     }
                     console.log(playerOne.cards[0].code);
+                    array.splice(0,1,displayNewCard);
+                    console.log(array);
                   
-                    document.querySelector('.playerOne').insertAdjacentHTML('beforeend', array[0]);
-                    playerOne.cards[0].code = newCard.card[0].code;
+                    document.querySelector('.playerOne').insertAdjacentHTML('beforeend', array);
+                    dummy = newCard.card[0].code;
 
                     console.log(playerOne.cards[0].code);
 
