@@ -25,6 +25,7 @@
             const result = await fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1');
             const data = await result.json();
             console.log(data);
+            //this is an array of 5 
             const playerOne = await(await fetch(`https://deckofcardsapi.com/api/deck/${data.deck_id}/draw/?count=5`)).json();
             console.log(playerOne);
             const playerTwo= await(await fetch(`https://deckofcardsapi.com/api/deck/${data.deck_id}/draw/?count=5`)).json();
@@ -37,27 +38,83 @@
 
             //https://stackoverflow.com/questions/33846682/react-onclick-function-fires-on-render/33846747
             //Because you are calling that function instead of passing the function to onClick, change that line to this:
-            const displayCards1 = playerOne.cards.map((currentElement) =>{
-                //apparently each button need their own unique code in order to have each button click a new card
-                const displayCard = `<button class="buttonCard${currentElement.code}">
-                    <img src = ${currentElement.image} alt = ${currentElement.code}>
-                    </button>`
-                document.querySelector('.playerOne').insertAdjacentHTML('beforeend',displayCard);
-                document.querySelector(`.buttonCard${currentElement.code}`).addEventListener('click', () =>getNewCard())
-            });
-     
-            const displayCards2 = playerTwo.cards.map((currentElement) =>{
-                const displayCard = `<button class="buttonCard${currentElement.code}">
-                    <img src = ${currentElement.image} alt = ${currentElement.code}>
-                    </button>`
-                document.querySelector('.playerTwo').insertAdjacentHTML('beforeend',displayCard);
-                  document.querySelector(`.buttonCard${currentElement.code}`).addEventListener('click', () =>getNewCard())
-            });
 
-            const getNewCard = async () => {
-                const newCard = await(await fetch(`https://deckofcardsapi.com/api/deck/${data.deck_id}/draw/?count=1`)).json();
-                console.log(newCard);
-            };
+
+// <!-- 
+//             const displayCards1 = playerOne.cards.map((currentElement) =>{
+//                 //apparently each button need their own unique code in order to have each button click a new card
+//                 const displayCard = `<button class="buttonCard${currentElement.code}">
+//                     <img src = ${currentElement.image} alt = ${currentElement.code}>
+//                     </button>`
+
+//                 const getNewCard = async () => {
+//                     const newCard = await(await fetch(`https://deckofcardsapi.com/api/deck/${data.deck_id}/draw/?count=1`)).json();
+//                     console.log(newCard);
+//                 };
+//                 document.querySelector('.playerOne').insertAdjacentHTML('beforeend',displayCard);
+//                 document.querySelector(`.buttonCard${currentElement.code}`).addEventListener('click', () =>getNewCard())
+//             });
+//             console.log(displayCards1);
+//      -->
+
+            const displayCard1 = `<button class="buttonCard${playerOne.cards[0].code}">
+                <img src = ${playerOne.cards[0].image} alt = ${playerOne.cards[0].code}>
+                </button>`;
+
+            // document.querySelector('.playerOne').insertAdjacentHTML('beforeend',displayCard1);
+
+   
+
+            const displayCard2 = `<button class="buttonCard${playerOne.cards[1].code}">
+                <img src = ${playerOne.cards[1].image} alt = ${playerOne.cards[1].code}>
+                </button>`;
+
+            const array = [displayCard1,displayCard2];
+
+            document.querySelector('.playerOne').insertAdjacentHTML('beforeend',array);
+
+            document.querySelector(`.buttonCard${playerOne.cards[0].code}`).addEventListener('click', async (e) =>{
+                if(e){
+                    const newCard = await(await fetch(`https://deckofcardsapi.com/api/deck/${data.deck_id}/draw/?count=1`)).json();
+                    console.log(newCard);
+                    const displayNewCard = `<button class="buttonCard${newCard.cards[0].code}">
+                        <img src = ${newCard.cards[0].image} alt = ${newCard.cards[0].code}>
+                        </button>`;
+
+                    
+                    array.splice(0,1,displayNewCard);
+                    console.log(array);
+                    const el = document.querySelector(`.buttonCard${playerOne.cards[0].code}`);
+                    if (el){
+                        el.parentNode.removeChild(el);
+                    }
+                    console.log(playerOne.cards[0].code);
+                  
+                    document.querySelector('.playerOne').insertAdjacentHTML('beforeend', array[0]);
+                    playerOne.cards[0].code = newCard.card[0].code;
+
+                    console.log(playerOne.cards[0].code);
+
+                }
+                })
+            
+            
+            
+      
+
+            // const displayCards2 = playerTwo.cards.map((currentElement) =>{
+            //     const displayCard = `<button class="buttonCard${currentElement.code}">
+            //         <img src = ${currentElement.image} alt = ${currentElement.code}>
+            //         </button>`
+            //     const getNewCard = async () => {
+            //         const newCard = await(await fetch(`https://deckofcardsapi.com/api/deck/${data.deck_id}/draw/?count=1`)).json();
+            //         console.log(newCard);
+            //     };
+            //     document.querySelector('.playerTwo').insertAdjacentHTML('beforeend',displayCard);
+            //     document.querySelector(`.buttonCard${currentElement.code}`).addEventListener('click', () =>getNewCard())
+            // });
+
+        
 
          
 
