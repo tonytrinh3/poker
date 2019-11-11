@@ -21,11 +21,11 @@
 </style>
 <body>
     <div class="player-1"></div>
-        <button class = "card-1" value = "1"></button>
-        <button class = "card-2"></button>
-        <button class = "card-3"></button>
-        <button class = "card-4"></button>
-        <button class = "card-5"></button>
+        <button class = "card card-1"></button>
+        <button class = "card card-2"></button>
+        <button class = "card card-3"></button>
+        <button class = "card card-4"></button>
+        <button class = "card card-5"></button>
     <br/>
     <div class="player-1"></div>
 </body>
@@ -102,7 +102,15 @@
                     document.head.appendChild(style);
 
                     document.querySelector(`.card-${index+1}`).insertAdjacentHTML('beforeend', displayNewCard);
+                    count++;
+                    console.log(count);
                 });
+                
+                
+                // if (count = 3){
+                //     document.querySelector('.card').disabled=true;
+
+                // }
 
 
             });
