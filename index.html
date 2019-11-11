@@ -15,6 +15,7 @@
     button{
         border: none;
         outline: none;
+        background-color: green;
     }
 
 </style>
@@ -41,42 +42,41 @@
     // https://gist.github.com/msmfsd/fca50ab095b795eb39739e8c4357a808
     
     const getDeckOfCards = async () => {
-        // document.querySelector(".card").style.display = "none";
-
 
 
         try{
             const result = await fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1');
             const data = await result.json();
             console.log(data);
+
             //this is an array of 5 
             const playerOne = await(await fetch(`https://deckofcardsapi.com/api/deck/${data.deck_id}/draw/?count=5`)).json();
             console.log(playerOne);
             const playerTwo= await(await fetch(`https://deckofcardsapi.com/api/deck/${data.deck_id}/draw/?count=5`)).json();
             console.log(playerTwo);
 
-            // document.querySelector('.btn-roll').addEventListener('click', function() {}
-
             //https://stackoverflow.com/questions/33846682/react-onclick-function-fires-on-render/33846747
             //Because you are calling that function instead of passing the function to onClick, change that line to this:
 
 
-                const something = document.querySelector('.card-1').value;
-                //console.log(something+1);
+            const something = document.querySelector('.card-1').value;
+            //console.log(something+1);
 
             playerOne.cards.forEach((curEl, index) => {
                 const displayCard = `<img src = ${curEl.image} alt = ${curEl.code}/>`;
 
                 document.querySelector(`.card-${index+1}`).insertAdjacentHTML('beforeend',displayCard);
 
-                    //https://dev.to/karataev/set-css-styles-with-javascript-3nl5
-                    let style = document.createElement('style');
-                    style.innerHTML = `
-                    .card-${index+1} {
-                    background-color: green;
-                    }
-                    `;
-                    document.head.appendChild(style);
+                //https://dev.to/karataev/set-css-styles-with-javascript-3nl5
+                let style = document.createElement('style');
+                style.innerHTML = `
+                .card-${index+1} {
+                background-color: green;
+                }
+                `;
+                document.head.appendChild(style);
+
+                let count = 0;
 
 
                 document.querySelector(`.card-${index+1}`).addEventListener('click', async () =>{   
@@ -95,12 +95,16 @@
                     style.innerHTML = `
                     .card-${index+1} {
                     background-color: red;
+                    border-radius: 10px;
+                    padding: 4px;
                     }
                     `;
                     document.head.appendChild(style);
 
                     document.querySelector(`.card-${index+1}`).insertAdjacentHTML('beforeend', displayNewCard);
                 });
+
+
             });
             
         } catch (error){
