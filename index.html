@@ -20,14 +20,21 @@
 
 </style>
 <body>
-    <div class="player-1"></div>
-        <button class = "card card-1"></button>
-        <button class = "card card-2"></button>
-        <button class = "card card-3"></button>
-        <button class = "card card-4"></button>
-        <button class = "card card-5"></button>
+    <div class="player-1">
+        <button class = "card card-11"></button>
+        <button class = "card card-12"></button>
+        <button class = "card card-13"></button>
+        <button class = "card card-14"></button>
+        <button class = "card card-15"></button>
+    </div>
     <br/>
-    <div class="player-1"></div>
+    <div class="player-2">
+        <button class = "card card-21"></button>
+        <button class = "card card-22"></button>
+        <button class = "card card-23"></button>
+        <button class = "card card-24"></button>
+        <button class = "card card-25"></button>
+    </div>
 </body>
 <script src = "./pokersolver-master/pokersolver.js">
 
@@ -47,74 +54,88 @@
         try{
             const result = await fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1');
             const data = await result.json();
-            console.log(data);
+            
 
             //this is an array of 5 
             const playerOne = await(await fetch(`https://deckofcardsapi.com/api/deck/${data.deck_id}/draw/?count=5`)).json();
-            console.log(playerOne);
+            
             const playerTwo= await(await fetch(`https://deckofcardsapi.com/api/deck/${data.deck_id}/draw/?count=5`)).json();
-            console.log(playerTwo);
+            
 
             //https://stackoverflow.com/questions/33846682/react-onclick-function-fires-on-render/33846747
             //Because you are calling that function instead of passing the function to onClick, change that line to this:
 
 
-            const something = document.querySelector('.card-1').value;
-            //console.log(something+1);
+            let count = 0;
+            console.log(count);
 
-            playerOne.cards.forEach((curEl, index) => {
-                const displayCard = `<img src = ${curEl.image} alt = ${curEl.code}/>`;
+            
+            const renderCard = (cards,playerNumber) =>{
+                cards.forEach((curEl, index) => {
+                    const displayCard = `<img src = ${curEl.image} alt = ${curEl.code}/>`;
 
-                document.querySelector(`.card-${index+1}`).insertAdjacentHTML('beforeend',displayCard);
+                    const cardIndex = playerNumber+index+1;
 
-                //https://dev.to/karataev/set-css-styles-with-javascript-3nl5
-                let style = document.createElement('style');
-                style.innerHTML = `
-                .card-${index+1} {
-                background-color: green;
-                }
-                `;
-                document.head.appendChild(style);
+                    document.querySelector(`.card-${cardIndex}`).insertAdjacentHTML('beforeend',displayCard);
 
-                let count = 0;
-
-
-                document.querySelector(`.card-${index+1}`).addEventListener('click', async () =>{   
-
-                    const newCard = await(await fetch(`https://deckofcardsapi.com/api/deck/${data.deck_id}/draw/?count=1`)).json();
-                    const displayNewCard = `<img src = ${newCard.cards[0].image} alt = ${newCard.cards[0].code}>`;
-                    const el = document.querySelector(`.card-${index+1}`);
-                        
-                    
-                    //https://www.w3schools.com/jsref/met_node_removechild.asp
-                    el.removeChild(el.childNodes[0]);
-                    el.disabled=true;
-                   
                     //https://dev.to/karataev/set-css-styles-with-javascript-3nl5
                     let style = document.createElement('style');
                     style.innerHTML = `
                     .card-${index+1} {
-                    background-color: red;
-                    border-radius: 10px;
-                    padding: 4px;
+                    background-color: green;
                     }
                     `;
                     document.head.appendChild(style);
 
-                    document.querySelector(`.card-${index+1}`).insertAdjacentHTML('beforeend', displayNewCard);
-                    count++;
-                    console.log(count);
+                    //render new card
+                    document.querySelector(`.card-${cardIndex}`).addEventListener('click', async () =>{   
+                        count++
+                        console.log(count);
+                        const newCard = await(await fetch(`https://deckofcardsapi.com/api/deck/${data.deck_id}/draw/?count=1`)).json();
+                        const displayNewCard = `<img src = ${newCard.cards[0].image} alt = ${newCard.cards[0].code}>`;
+                        const el = document.querySelector(`.card-${cardIndex}`);
+                            
+                        
+                        //https://www.w3schools.com/jsref/met_node_removechild.asp
+                        el.removeChild(el.childNodes[0]);
+                        el.disabled=true;
+                        
+                        //https://dev.to/karataev/set-css-styles-with-javascript-3nl5
+                        let style = document.createElement('style');
+                        style.innerHTML = `
+                        .card-${cardIndex} {
+                        background-color: red;
+                        border-radius: 10px;
+                        padding: 4px;
+                        }
+                        `;
+                        document.head.appendChild(style);
+
+                        document.querySelector(`.card-${cardIndex}`).insertAdjacentHTML('beforeend', displayNewCard);
+
+                                        
+                        if (count === 3){
+                            document.querySelectorAll(`.card`).disabled = true;
+                    
+                            let style = document.createElement('style');
+                            style.innerHTML = `
+                            .card {
+                            background-color: red;
+                            border-radius: 10px;
+                            padding: 4px;
+                            }
+                            `;
+                            document.head.appendChild(style);
+                        }
+
+                    });
                 });
-                
-                
-                // if (count = 3){
-                //     document.querySelector('.card').disabled=true;
+            };
 
-                // }
-
-
-            });
+        renderCard(playerOne.cards,10);
+        renderCard(playerTwo.cards,20);
             
+        
         } catch (error){
             alert(error);
         }
