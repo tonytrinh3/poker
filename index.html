@@ -6,12 +6,25 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
 <style>
 
+    * {
+        font-family: 'Roboto', sans-serif;
+    }
     body{
         background-color: green;
     }
 
+    h1{
+        font-weight: 700;
+    }
+
+    p{
+        font-weight: 400;
+    }
+
+ 
     .players-card{
         display: block;
     }
@@ -23,7 +36,7 @@
       
     }
 
-    .players-card__player-2 h1{
+    .players-card__player-2{
         display: none;
     }
 
@@ -34,7 +47,7 @@
     }
 
     .turn__button{
-        padding: 1em;
+
     }
 
     .showdown{
@@ -44,9 +57,24 @@
     }
 
     .showdown__button{
-        padding: 1em;
+
         display: none;
-        font-size: 2em;
+   
+
+    }
+
+    .user-button{
+        border-radius: 10px;
+        border:none;
+        background-color: #001f3f;
+        color: white;
+        font-weight: 400;
+        font-size: 14px;
+        text-align: center;
+        text-decoration: none;
+        padding: 50px 100px;
+       
+    
     }
 
 </style>
@@ -59,6 +87,7 @@
             <button class = "players-card__card players-card__card--14"></button>
             <button class = "players-card__card players-card__card--15"></button>
             <h1>Player One</h1>
+            <p>You can only discard and draw up to three cards</p>
         </div>
         <br/>
         <div class="players-card__player-2">
@@ -68,24 +97,25 @@
             <button class = "players-card__card players-card__card--24"></button>
             <button class = "players-card__card players-card__card--25"></button>
             <h1>Player Two</h1>
+            <p>You can only discard and draw up to three cards</p>
         </div>
     </div>
 
     <div class="turn">
-        <button class= "turn__button">Opponent's Turn</button>
+        <button class= "user-button turn__button">Opponent's Turn</button>
     </div>
 
     <div class="showdown">
-        <button class= "showdown__button">Showdown!</button>
+        <button class= "user-button showdown__button">Showdown!</button>
     </div>
 
 </body>
-<script src = "./pokersolver-master/pokersolver.js">
+<!-- <script src = "./pokersolver-master/pokersolver.js">
 
-</script>
+</script> -->
 <script>
-
-    const state = {};
+    
+   
     // const fetchAsyncA = async () => await (await fetch('https://api.github.com')).json()
     // https://gist.github.com/msmfsd/fca50ab095b795eb39739e8c4357a808
     
@@ -202,10 +232,8 @@
                 .players-card__player-1{
                     display: none;
                 }
-                .players-card__player-1 h1{
-                    display: none;
-                }
-                .players-card__player-2 h1{
+
+                .players-card__player-2{
                     display: block;
                  }
                 .turn__button{
@@ -213,6 +241,7 @@
                 }
                 .showdown__button {
                     display: inline-block;
+                    background-color: #FF4136;
                 }
                 `;
                 document.head.appendChild(style);
@@ -220,18 +249,17 @@
                 document.querySelector(`.turn__button`).disabled=true;
             });
 
-
-
-
             document.querySelector(`.showdown__button`).addEventListener('click', () =>{
-                disableAllCards();
                 let style = document.createElement('style');
                 style.innerHTML = `
                 .players-card__player-1  {
                     display: block;
                 }
-                .players-card__player-1 h1{
-                    display: block;
+                .players-card__player-1 p {
+                    display: none;
+                }
+                .players-card__player-2 p{
+                    display: none;
                 }
                 .players-card__card{
                     background-color: green;
