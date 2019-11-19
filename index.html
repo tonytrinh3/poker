@@ -20,7 +20,7 @@
         border: none;
         outline: none;
         background-color: green;
-        z-index: 0;
+      
     }
 
     .players-card__player-2 h1{
@@ -125,14 +125,14 @@
                     }
                     `;
                     document.head.appendChild(style);
-
-                    renderNewCard(cardIndex, playerNumber);
+                    //passed down the cards array from json, cardindex that is relevant to changing the card, and player number
+                    renderNewCard(cards,cardIndex, playerNumber);
 
                 });
             };
 
-            
-            const renderNewCard = (index, playerNumber)=>{
+             //receives the cards array from json, cardindex that is relevant to changing the card, and player number
+            const renderNewCard = (cards,index, playerNumber)=>{
                 //render new card
                 document.querySelector(`.players-card__card--${index}`).addEventListener('click', async () =>{   
                     count++
@@ -161,23 +161,33 @@
 
                                     
                     if (count === 3){
-                        document.querySelector(`.players-card__player-${playerNumber}`).disabled = true;
+                        disableAllCards(cards, playerNumber);
                 
-                        let style = document.createElement('style');
-                        style.innerHTML = `
-                        .players-card__player-${playerNumber} .players-card__card {
-                        background-color: red;
-                        border-radius: 10px;
-                        padding: 4px;
-                        }
-                        `;
-                        document.head.appendChild(style);
+                        // let style = document.createElement('style');
+                        // style.innerHTML = `
+                        // .players-card__player-${playerNumber} .players-card__card {
+                        // background-color: red;
+                        // border-radius: 10px;
+                        // padding: 4px;
+                        // }
+                        // `;
+                        // document.head.appendChild(style);
                         //reset count when 3 cards are changed
                         count = 0;
                     }
 
                 });
 
+            };
+
+            const disableAllCards = (cardsArray, playerNumber) =>{
+                //cardsArray is just the array of cards from the json passed down
+                //https://www.w3schools.com/jsref/met_document_queryselectorall.asp
+                for(let i=0; i < cardsArray.length; i++){
+                    const cardIndex = playerNumber * 10 + i + 1;
+                    
+                    document.querySelector(`.players-card__card--${cardIndex}`).disabled=true;
+                }
             };
 
 
@@ -210,8 +220,11 @@
                 document.querySelector(`.turn__button`).disabled=true;
             });
 
+
+
+
             document.querySelector(`.showdown__button`).addEventListener('click', () =>{
-                document.querySelectorAll(`.players-card__card`).disabled=true;
+                disableAllCards();
                 let style = document.createElement('style');
                 style.innerHTML = `
                 .players-card__player-1  {
