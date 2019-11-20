@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+<style>
+
+    * {
+        font-family: 'Roboto', sans-serif;
+    }
+    body{
+        background-color: green;
+    }
+
+    h1{
+        font-weight: 700;
+    }
+
+    p{
+        font-weight: 400;
+    }
+
+ 
+    .players-card{
+        display: block;
+    }
+
+    .players-card__card {
+        border: none;
+        outline: none;
+        background-color: green;
+      
+    }
+
+    .players-card__player-2{
+        display: none;
+    }
+
+    .turn {
+        display: inline-block;
+        margin-top: 2em;
+        margin-left: 1em;
+    }
+
+    .turn__button{
+
+    }
+
+    .showdown{
+        display: inline-block;
+        margin-top: 2em;
+        margin-left: 1em;
+    }
+
+    .showdown__button{
+
+        display: none;
+   
+
+    }
+
+    .user-button{
+        border-radius: 10px;
+        border:none;
+        background-color: #001f3f;
+        color: white;
+        font-weight: 400;
+        font-size: 14px;
+        text-align: center;
+        text-decoration: none;
+        padding: 50px 100px;
+       
+    
+    }
+
+</style>
+<body>
+    <div class="players-card">
+        <div class="players-card__player-1">
+            <button class = "players-card__card players-card__card--11"></button>
+            <button class = "players-card__card players-card__card--12"></button>
+            <button class = "players-card__card players-card__card--13"></button>
+            <button class = "players-card__card players-card__card--14"></button>
+            <button class = "players-card__card players-card__card--15"></button>
+            <h1>Player One</h1>
+            <p>You can only discard and draw up to three cards</p>
+        </div>
+        <br/>
+        <div class="players-card__player-2">
+            <button class = "players-card__card players-card__card--21"></button>
+            <button class = "players-card__card players-card__card--22"></button>
+            <button class = "players-card__card players-card__card--23"></button>
+            <button class = "players-card__card players-card__card--24"></button>
+            <button class = "players-card__card players-card__card--25"></button>
+            <h1>Player Two</h1>
+            <p>You can only discard and draw up to three cards</p>
+        </div>
+    </div>
+
+    <div class="turn">
+        <button class= "user-button turn__button">Opponent's Turn</button>
+    </div>
+
+    <div class="showdown">
+        <button class= "user-button showdown__button">Showdown!</button>
+    </div>
+
+<script type="text/javascript" src="js/bundle.js"></script></body>
+
+</html>
