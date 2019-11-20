@@ -1,6 +1,14 @@
-
-
+import Hand from "./pokersolver-master/pokersolver.js"
 const state = {};
+
+var hand1 = Hand.solve(['3d', '4d', 'Kd', '5d', '2s']);
+var hand2 = Hand.solve(['Ad', 'As', 'Jc', 'Qs', 'Qd']);
+var winner = Hand.winners([hand1, hand2]); // hand2
+
+console.log(hand1);
+console.log(hand2);
+console.log(winner);
+
 
 
 // const fetchAsyncA = async () => await (await fetch('https://api.github.com')).json()

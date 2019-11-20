@@ -20,6 +20,7 @@
     "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.7.0"
+    "@babel/polyfill": "^7.7.0",
+    "pokersolver": "^2.1.3"
   }
 }

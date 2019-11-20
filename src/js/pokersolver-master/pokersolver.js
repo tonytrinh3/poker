@@ -4,8 +4,7 @@
  * http://goldfirestudios.com
  */
 
-(function() {
-  'use strict';
+
 
   // NOTE: The 'joker' will be denoted with a value of 'O' and any suit.
   var values = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'];
@@ -13,7 +12,7 @@
   /**
    * Base Card class that defines a single card.
    */
-  class Card {
+  export class Card {
     constructor(str) {
       this.value = str.substr(0, 1);
       this.suit = str.substr(1, 1).toLowerCase();
@@ -39,7 +38,7 @@
   /**
    * Base Hand class that handles comparisons of full hands.
    */
-  class Hand {
+ export default class Hand {
     constructor(cards, name, game, canDisqualify) {
       this.cardPool = [];
       this.cards = [];
@@ -353,7 +352,7 @@
     }
   }
 
-  class StraightFlush extends Hand {
+ export class StraightFlush extends Hand {
     constructor(cards, game, canDisqualify) {
       super(cards, 'Straight Flush', game, canDisqualify);
     }
@@ -399,7 +398,7 @@
     }
   }
 
-  class RoyalFlush extends StraightFlush {
+  export class RoyalFlush extends StraightFlush {
     constructor(cards, game, canDisqualify) {
       super(cards, game, canDisqualify);
     }
@@ -411,7 +410,7 @@
     }
   }
 
-  class NaturalRoyalFlush extends RoyalFlush {
+  export class NaturalRoyalFlush extends RoyalFlush {
     constructor(cards, game, canDisqualify) {
       super(cards, game, canDisqualify);
     }
@@ -436,7 +435,7 @@
     }
   }
 
-  class WildRoyalFlush extends RoyalFlush {
+  export class WildRoyalFlush extends RoyalFlush {
     constructor(cards, game, canDisqualify) {
       super(cards, game, canDisqualify);
     }
@@ -461,7 +460,7 @@
     }
   }
 
-  class FiveOfAKind extends Hand {
+  export class FiveOfAKind extends Hand {
     constructor(cards, game, canDisqualify) {
       super(cards, 'Five of a Kind', game, canDisqualify);
     }
@@ -495,7 +494,7 @@
     }
   }
 
-  class FourOfAKindPairPlus extends Hand {
+  export class FourOfAKindPairPlus extends Hand {
     constructor(cards, game, canDisqualify) {
       super(cards, 'Four of a Kind with Pair or Better', game, canDisqualify);
     }
@@ -559,7 +558,7 @@
     }
   }
 
-  class FourOfAKind extends Hand {
+  export class FourOfAKind extends Hand {
     constructor(cards, game, canDisqualify) {
       super(cards, 'Four of a Kind', game, canDisqualify);
     }
@@ -598,7 +597,7 @@
     }
   }
 
-  class FourWilds extends Hand {
+  export class FourWilds extends Hand {
     constructor(cards, game, canDisqualify) {
       super(cards, 'Four Wild Cards', game, canDisqualify);
     }
@@ -621,7 +620,7 @@
     }
   }
 
-  class ThreeOfAKindTwoPair extends Hand {
+  export class ThreeOfAKindTwoPair extends Hand {
     constructor(cards, game, canDisqualify) {
       super(cards, 'Three of a Kind with Two Pair', game, canDisqualify);
     }
@@ -702,7 +701,7 @@
     }
   }
 
-  class FullHouse extends Hand {
+  export class FullHouse extends Hand {
     constructor(cards, game, canDisqualify) {
       super(cards, 'Full House', game, canDisqualify);
     }
@@ -766,7 +765,7 @@
     }
   }
 
-  class Flush extends Hand {
+  export class Flush extends Hand {
     constructor(cards, game, canDisqualify) {
       super(cards, 'Flush', game, canDisqualify);
     }
@@ -795,7 +794,7 @@
     }
   }
 
-  class Straight extends Hand {
+  export class Straight extends Hand {
     constructor(cards, game, canDisqualify) {
       super(cards, 'Straight', game, canDisqualify);
     }
@@ -993,7 +992,7 @@
     }
   }
 
-  class TwoThreeOfAKind extends Hand {
+  export class TwoThreeOfAKind extends Hand {
     constructor(cards, game, canDisqualify) {
       super(cards, 'Two Three Of a Kind', game, canDisqualify);
     }
@@ -1050,7 +1049,7 @@
     }
   }
 
-  class ThreeOfAKind extends Hand {
+  export class ThreeOfAKind extends Hand {
     constructor(cards, game, canDisqualify) {
       super(cards, 'Three of a Kind', game, canDisqualify);
     }
@@ -1088,7 +1087,7 @@
     }
   }
 
-  class ThreePair extends Hand {
+  export class ThreePair extends Hand {
     constructor(cards, game, canDisqualify) {
       super(cards, 'Three Pair', game, canDisqualify);
     }
@@ -1163,7 +1162,7 @@
     }
   }
 
-  class TwoPair extends Hand {
+  export class TwoPair extends Hand {
     constructor(cards, game, canDisqualify) {
       super(cards, 'Two Pair', game, canDisqualify);
     }
@@ -1225,7 +1224,7 @@
     }
   }
 
-  class OnePair extends Hand {
+  export class OnePair extends Hand {
     constructor(cards, game, canDisqualify) {
       super(cards, 'Pair', game, canDisqualify);
     }
@@ -1263,7 +1262,7 @@
     }
   }
 
-  class HighCard extends Hand {
+  export class HighCard extends Hand {
     constructor(cards, game, canDisqualify) {
       super(cards, 'High Card', game, canDisqualify);
     }
@@ -1296,7 +1295,7 @@
    * http://wizardofodds.com/games/pai-gow-poker/house-way/mgm/
    * EXCEPTION: With Four of a Kind and S/F, preserve the S/F, just like Three of a Kind.
    */
-  class PaiGowPokerHelper {
+  export class PaiGowPokerHelper {
     /*
      * Constructor class.
      * @param {Hand} hand Solved hand against Game 'paigowpokerfull'.
@@ -1792,7 +1791,7 @@
   /**
    * Base Game class that defines the rules of the game.
    */
-  class Game {
+  export class Game {
     constructor(descr) {
       this.descr = descr;
       this.cardsInHand = 0;
@@ -1819,47 +1818,14 @@
     }
   }
 
-  function exportToGlobal(global) {
-    global.Card = Card;
-    global.Hand = Hand;
-    global.Game = Game;
-    global.RoyalFlush = RoyalFlush;
-    global.NaturalRoyalFlush = NaturalRoyalFlush;
-    global.WildRoyalFlush = WildRoyalFlush;
-    global.FiveOfAKind = FiveOfAKind;
-    global.StraightFlush = StraightFlush;
-    global.FourOfAKindPairPlus = FourOfAKindPairPlus;
-    global.FourOfAKind = FourOfAKind;
-    global.FourWilds = FourWilds;
-    global.TwoThreeOfAKind = TwoThreeOfAKind;
-    global.ThreeOfAKindTwoPair = ThreeOfAKindTwoPair;
-    global.FullHouse = FullHouse;
-    global.Flush = Flush;
-    global.Straight = Straight;
-    global.ThreeOfAKind = ThreeOfAKind;
-    global.ThreePair = ThreePair;
-    global.TwoPair = TwoPair;
-    global.OnePair = OnePair;
-    global.HighCard = HighCard;
-    global.PaiGowPokerHelper = PaiGowPokerHelper;
-  }
+  
 
-  // Export the classes for node.js use.
-  if (typeof exports !== 'undefined') {
-    exportToGlobal(exports);
-  }
 
-  // Add the classes to the window for browser use.
-  if (typeof window !== 'undefined') {
-    exportToGlobal(window);
-  }
+// var hand1 = Hand.solve(['3d', '4d', 'Kd', '5d', '2s']);
+// var hand2 = Hand.solve(['Ad', 'As', 'Jc', 'Qs', 'Qd']);
+// var winner = Hand.winners([hand1, hand2]); // hand2
 
-})();
+// console.log(hand1);
+// console.log(hand2);
+// console.log(winner);
 
-var hand1 = Hand.solve(['3d', '4d', 'Kd', '5d', '2s']);
-var hand2 = Hand.solve(['Ad', 'As', 'Jc', 'Qs', 'Qd']);
-var winner = Hand.winners([hand1, hand2]); // hand2
-
-console.log(hand1);
-console.log(hand2);
-console.log(winner);
