@@ -25,6 +25,8 @@ const getDeckOfCards = async () => {
         
         const playerTwo= await(await fetch(`https://deckofcardsapi.com/api/deck/${data.deck_id}/draw/?count=5`)).json();
         
+        state.playerOneCards = playerOne.cards;
+            state.playerTwoCards = playerTwo.cards;
 
         //https://stackoverflow.com/questions/33846682/react-onclick-function-fires-on-render/33846747
         //Because you are calling that function instead of passing the function to onClick, change that line to this:
@@ -143,6 +145,18 @@ const getDeckOfCards = async () => {
             renderCard(playerTwo.cards,2);
             document.querySelector(`.turn__button`).disabled=true;
         });
+
+        // const handSolve = (playersCards) => {
+        //     const cardsArray = playersCards.map((curEl)=>{
+        //       let codeArray = curEl.code.toLowerCase().split("");
+        //       const cardNumber = codeArray[0];
+        //       const suit = codeArray[1];
+        //       return codeArray = suit.concat(cardNumber);
+              
+        //     })
+        //   }
+          
+        //  console.log(handSolve(playerOne.cards));
 
         document.querySelector(`.showdown__button`).addEventListener('click', () =>{
             let style = document.createElement('style');
