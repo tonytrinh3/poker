@@ -26,6 +26,7 @@ const getDeckOfCards = async () => {
         const playerTwo= await(await fetch(`https://deckofcardsapi.com/api/deck/${data.deck_id}/draw/?count=5`)).json();
         
         state.playerOneCards = playerOne.cards;
+        console.log(state.playerOneCards)
             state.playerTwoCards = playerTwo.cards;
 
         //https://stackoverflow.com/questions/33846682/react-onclick-function-fires-on-render/33846747
@@ -146,17 +147,23 @@ const getDeckOfCards = async () => {
             document.querySelector(`.turn__button`).disabled=true;
         });
 
-        // const handSolve = (playersCards) => {
-        //     const cardsArray = playersCards.map((curEl)=>{
-        //       let codeArray = curEl.code.toLowerCase().split("");
-        //       const cardNumber = codeArray[0];
-        //       const suit = codeArray[1];
-        //       return codeArray = suit.concat(cardNumber);
+        const handSolve = (playersCards) => {
+            const cardsArray = playersCards.map((curEl)=>{
+              let codeArray = curEl.code.split("");
+              let cardNumber = codeArray[0];
               
-        //     })
-        //   }
+              if(cardNumber === "0"){
+                cardNumber = "T";
+              }
           
-        //  console.log(handSolve(playerOne.cards));
+              const suit = codeArray[1].toLowerCase();
+              return codeArray = cardNumber.concat(suit);
+              
+            })
+            return cardsArray;
+          }
+          
+         console.log(handSolve(playerOne.cards));
 
         document.querySelector(`.showdown__button`).addEventListener('click', () =>{
             let style = document.createElement('style');
