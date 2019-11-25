@@ -1,13 +1,7 @@
 import Hand from "./pokersolver-master/pokersolver.js"
 const state = {};
 
-var hand1 = Hand.solve(['3d', '4d', 'Kd', '5d', '2s']);
-var hand2 = Hand.solve(['Ad', 'As', 'Jc', 'Qs', 'Qd']);
-var winner = Hand.winners([hand1, hand2]); // hand2
 
-console.log(hand1);
-console.log(hand2);
-console.log(winner);
 
 
 
@@ -50,10 +44,11 @@ const getDeckOfCards = async () => {
 
         state.playerOneCards = playerOne.cards;
         state.playerCardsArray__1 = handArray(state.playerOneCards);
-        console.log(state.playerCardsArray__1);
+        
        
         state.playerTwoCards = playerTwo.cards;
-        state.playerCardsArray__2 = handArray(state.playerOneCards);
+        state.playerCardsArray__2 = handArray(state.playerTwoCards);
+        console.log(state)
 
         //https://stackoverflow.com/questions/33846682/react-onclick-function-fires-on-render/33846747
         //Because you are calling that function instead of passing the function to onClick, change that line to this:
@@ -91,9 +86,9 @@ const getDeckOfCards = async () => {
             const cardIndex = (playerNumber*10)+index+1;
             document.querySelector(`.players-card__card--${cardIndex}`).addEventListener('click', async () =>{   
                 count++
-                console.log(count);
+             
                 const newCard = await(await fetch(`https://deckofcardsapi.com/api/deck/${data.deck_id}/draw/?count=1`)).json();
-                console.log(newCard);
+                
                 const displayNewCard = `<img src = ${newCard.cards[0].image} alt = ${newCard.cards[0].code}>`;
                 const el = document.querySelector(`.players-card__card--${cardIndex}`);
 
@@ -188,6 +183,20 @@ const getDeckOfCards = async () => {
 
 
         document.querySelector(`.showdown__button`).addEventListener('click', () =>{
+
+            const hand1 = Hand.solve(state.playerCardsArray__1);
+            const hand2 = Hand.solve(state.playerCardsArray__2);
+            const winner = Hand.winners([hand1, hand2]); 
+            
+
+
+            console.log(hand1);
+            console.log(hand2);
+            console.log(winner);
+
+
+            document.querySelector(`.winner`).innerHTML = `${winner[0].descr}`;
+
             let style = document.createElement('style');
             style.innerHTML = `
             .players-card__player-1  {
@@ -207,10 +216,22 @@ const getDeckOfCards = async () => {
             .showdown__button {
                 display: none;
             }
+
+            .winner{
+                display: block;
+            }
             `;
             document.head.appendChild(style);
+
+
+
+            
+      
+                    
+
         });
-        
+
+
     
     } catch (error){
         alert(error);
