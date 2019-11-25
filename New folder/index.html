@@ -40,15 +40,17 @@
         display: none;
     }
 
+    .winner{
+        font-size: 2em;
+
+    }
+
     .turn {
         display: inline-block;
         margin-top: 2em;
         margin-left: 1em;
     }
 
-    .turn__button{
-
-    }
 
     .showdown{
         display: inline-block;
@@ -88,6 +90,7 @@
             <button class = "players-card__card players-card__card--15"></button>
             <h1>Player One</h1>
             <p>You can only discard and draw up to three cards</p>
+            <h1 class = "winner">Player One has won</h1>
         </div>
         <br/>
         <div class="players-card__player-2">
@@ -110,18 +113,10 @@
     </div>
 
 </body>
-<script src = "./pokersolver-master/pokersolver.js">
-</script> 
-<script>
+<!-- <script src = "./pokersolver-master/pokersolver.js">
 
-var hand1 = Hand.solve(['3d', '4d', 'Kd', '5d', '2s']);
-var hand2 = Hand.solve(['Ad', 'As', 'Jc', 'Qs', 'Qd']);
-var winner = Hand.winners([hand1, hand2]); // hand2
-
-console.log(hand1);
-console.log(hand2);
-console.log(winner);
-
+</script> -->
+<!-- <script>
 
     const state = {};
     
@@ -292,5 +287,5 @@ console.log(winner);
 
     getDeckOfCards();
     
-</script>
+</script> -->
 </html>
