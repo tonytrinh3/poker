@@ -194,8 +194,14 @@ const getDeckOfCards = async () => {
             console.log(hand2);
             console.log(winner);
 
+            if(winner[0].descr === hand1.descr){
+                document.querySelector(`.winner`).innerHTML = `Player One won with ${winner[0].descr}!`;
+            } else if (winner[0].descr === hand2.descr){
+                document.querySelector(`.winner`).innerHTML = `Player Two won with ${winner[0].descr}!`;
+            }
 
-            document.querySelector(`.winner`).innerHTML = `${winner[0].descr}`;
+
+       
 
             let style = document.createElement('style');
             style.innerHTML = `
